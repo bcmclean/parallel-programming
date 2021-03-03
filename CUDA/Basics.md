@@ -19,7 +19,4 @@ Note: Write kernel code as if it is going to be run on 1 thread. We will use IDs
 
 ### Example Code
 
-![](CUDA/Screen Shot 2021-03-03 at 3.34.24 pm.png)
-
-
-
+<img src="https://github.com/bcmclean/parallelprogramming/blob/main/CUDA/Screen%20Shot%202021-03-03%20at%203.34.24%20pm.png" width="500" height="400">
