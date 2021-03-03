@@ -18,3 +18,8 @@ The best applications use both GPU and CPU. CPUs can be 10x faster for **sequent
 Note: Write kernel code as if it is going to be run on 1 thread. We will use IDs to identify which piece of data is being processed by this thread.
 
 ### Example Code
+
+![](CUDA/Screen Shot 2021-03-03 at 3.34.24 pm.png)
+
+
+
