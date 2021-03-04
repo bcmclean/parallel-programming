@@ -2,6 +2,35 @@
 
 The best applications use both GPU and CPU. CPUs can be 10x faster for **sequential**, while GPUs can be 10x faster for **parallel.**
 
+### CUDA Functions
+
+CUDA functions return an error code if something goes wrong
+
+#### `cudaMalloc(void **d_ptr, size_t n)`
+
+- Allocates n bytes of linear memory on the device and returns in `*d_ptr` a pointer to that allocated memory
+- d_ptr: address of pointer to allocated device memory
+- n: size of requested memory in bytes
+
+#### `cudaMemcpy(void *dst, void *src, size_t n, dir)`
+
+- Copies data between the host (CPU) and device (GPU)
+- dst/src -> pointers to dest/source memory segments
+- n -> number of bytes to copy
+- dir -> type of transfer which could be
+  - cudaMemcpyDeviceToHost
+  - cudaMemcpyHostToDevice
+  - cudaMemcpyDeviceToDevice
+- Starts copying after previous cuda calls are completed
+- CPU thread is blocked until after copy is complete
+
+#### `cudaFree(void *d_ptr)`
+
+- Frees memory on device pointed at by d_ptr
+
+
+
+
 ### Host Code (CPU)
 
 1. Allocate space on the GPU : `cudaMalloc`
