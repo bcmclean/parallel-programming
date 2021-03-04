@@ -148,4 +148,6 @@ cudaFree(d_a); cudaFree(d_b); cudaFree(d_c);
   - N would be the size of the array
   - So to get the number of bytes -> N * sizeof(int)
 
+!!!
+
 **Two:** Passing in '&c' in one example and 'c' in another for cudaMemcpy **still trying to figure this one out**
