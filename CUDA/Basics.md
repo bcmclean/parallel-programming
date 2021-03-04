@@ -89,9 +89,9 @@ b = malloc(N * sizeof(int));
 c = malloc(N * sizeof(int));
 
 // allocated memory
-cudaMalloc(&d_a, N* sizeof(int));
-cudaMalloc(&d_b, N* sizeof(int));
-cudaMalloc(&d_c, N* sizeof(int));
+cudaMalloc(&d_a, N * sizeof(int));
+cudaMalloc(&d_b, N * sizeof(int));
+cudaMalloc(&d_c, N * sizeof(int));
 
 // copy CPU to GPU. Don't need to copy C since there are no numbers - it will be calculated by the GPU
 cudaMemcpy(d_a, a, N * sizeof(int), cudaMemcpyHostToDevice);
@@ -103,3 +103,12 @@ cudaMemcpy(c, d_c, N * sizeof(int), cudaMemcpyDeviceToHost);
 
 cudaFree(d_a); cudaFree(d_b); cudaFree(d_c);
 ```
+### Points of confusion
+
+Passing in `sizeof(int)` or `N * sizeof(int)`
+
+  - These functions take in the number of bytes
+  - `sizeof()` just returns the amount of memory that is allocated to that data type 
+  - `sizeof(int)` will return 4 since an int uses 4 bytes
+  - N would be the size of the array
+  - So to get the number of bytes -> N * sizeof(int)
