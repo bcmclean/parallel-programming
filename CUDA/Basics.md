@@ -2,6 +2,8 @@
 
 The best applications use both GPU and CPU. CPUs can be 10x faster for **sequential**, while GPUs can be 10x faster for **parallel.**
 
+---
+
 ### CUDA Functions
 
 CUDA functions return an error code if something goes wrong
@@ -28,8 +30,9 @@ CUDA functions return an error code if something goes wrong
 
 - Frees memory on device pointed at by d_ptr
 
+---
 
-
+### How do you parallelize code?
 
 ### Host Code (CPU)
 
@@ -46,7 +49,7 @@ CUDA functions return an error code if something goes wrong
 ### Kernal Code
 Note: Write kernel code as if it is going to be run on 1 thread. We will use IDs to identify which piece of data is being processed by this thread.
 
-### Example Code
+### Example..
 
 Parallelize the following code:
 
@@ -132,12 +135,17 @@ cudaMemcpy(c, d_c, N * sizeof(int), cudaMemcpyDeviceToHost);
 
 cudaFree(d_a); cudaFree(d_b); cudaFree(d_c);
 ```
+
+---
+
 ### Points of confusion
 
-Passing in `sizeof(int)` or `N * sizeof(int)`
+**One:** Passing in `sizeof(int)` or `N * sizeof(int)`
 
   - These functions take in the number of bytes
   - `sizeof()` just returns the amount of memory that is allocated to that data type 
   - `sizeof(int)` will return 4 since an int uses 4 bytes
   - N would be the size of the array
   - So to get the number of bytes -> N * sizeof(int)
+
+**Two:** Passing in '&c' in one example and 'c' in another for cudaMemcpy **still trying to figure this one out**
