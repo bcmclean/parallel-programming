@@ -2,6 +2,39 @@
 
 The best applications use both GPU and CPU. CPUs can be 10x faster for **sequential**, while GPUs can be 10x faster for **parallel.**
 
+### Important notes:
+- Device -> runs on GPU (coprocessor to the CPU.. in this case a GPU)
+- Host -> runs on CPU 
+- CPUs can be 10x faster for sequential code
+- GPUs can be 10x faster for parallel code
+- With CPUs, **latency** matters
+- With GPUs, **throughput** wins
+- A device has its own DRAM (device memory)
+- Kernel Code: Data-parallel portions of an application which run on the device
+- C Program = host code (runs on CPU) + device code (runs on GPU)
+- Serial or modestly parallel parts in host C code is compiled by host standard compiler
+- Highly parallel parts in device SPMD kernel C code is compiled by NVIDIA compiler
+- A CUDA kernel is executed by an array of threads
+- SPMD -> single program multiple data
+
+Flash cards: https://quizlet.com/575297696/l13-cuda-flash-cards/?new
+
+---
+
+### `_global_`
+
+- Called from CPU, executed on (kernel function) GPU/device. Must return void
+
+### `_device_`
+
+- Called from GPU and executed by the GPU. Can't be called from CPU
+- Called from other global/device functions
+
+### `_host_`
+
+- Called and executed by CPU
+- Device & host can be used together
+
 ---
 
 ### CUDA Functions
@@ -29,6 +62,10 @@ CUDA functions return an error code if something goes wrong
 #### `cudaFree(void *d_ptr)`
 
 - Frees memory on device pointed at by d_ptr
+
+#### `cudaMemset(void* d_ptr, int value, size_t n)
+
+- Fills first n bytes of memory area pointed to by d_ptr with a constant value value
 
 ---
 
