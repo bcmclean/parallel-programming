@@ -106,7 +106,7 @@ We should know that:
   - Threads within the same block cooperate via shared memory, atomic operations and barrier synchronization
   - Threads in different blocks CANNOT cooperate
 
-
+The data of matrix d_M is stored in memory as a one dimensional array that follows row-major convention
 
 
 
