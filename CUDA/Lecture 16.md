@@ -32,3 +32,20 @@ Note: **SM = streaming multiprocessor**
 4. Warps are executed by the SM (each SP executes one thread)
   - Threads in a warp run in parallel
   - All threads in a warp execute the same instruction when selected
+
+### Zero-overhead and Latency Tolerance
+- Latency hiding:
+  - While a warp is waiting for a result from a long-latency operation the SM will pick another warp that's ready to execute. This avoids idle time and makes full use of the hardware despite long latency operations
+
+Note: Latency is the delay between an action and the response to that action
+
+- Zero-overhead thread scheduling
+  - Having zero idle time is referred to as zero-overhead thread scheduling in processor designs
+
+- Switching of the warps requires almost no time. Switching allows it to hide the latency. 
+
+### GPU Limits
+- Limits on blocks and threads it can simultaneously tracked
+- G80: Each SM can track up to 8 blocks / 768 threads at a time
+- G200: Each SM can process up to 8 blocks / 1024 threads at a time
+- If we assign more than the max amount it will just be scheduled for a later execution
