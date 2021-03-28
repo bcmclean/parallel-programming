@@ -66,7 +66,7 @@ This is how they rank:
 #### Why would shared memory be faster than local memory?
 If what you're looking for isn't in the cache, you have to grab it from the global memory!
 
-## Part 2
+## Part 2: Let's improve the memory!
 
 #### CGMA
 - Compute to Global Memory Access
@@ -79,3 +79,22 @@ A low CGMA = low performance.
 
 **The aim here would be to increase the CGMA (reduce the number of general memory accesses with respect to the # of floating point operations**
 
+<img src="https://github.com/bcmclean/parallel-programming/blob/main/CUDA/poor-performance-CGMA.png" height="500" width="700">
+
+### What's wrong with the performance of the code above?
+Well, it has a CGMA of 1. This means that for each floating point operation, there is 1 memory transaction.
+
+So 1 Floating Point Operation / 1 Memory Access. Remember, a low CGMA means low performance! The goal, again, is to reduce the number of general memory accesses with respect ot the # of floating point operations. 
+
+### What can we do about it?
+In the code, every element in M or N is being read twice (when tile_width = 2). Each item is accessed tile_width times.
+
+How many times will each element in M be read by all the threads for computing p? Width times!
+
+### We can use something called ✨ tiling ✨ to reduce global memory traffic
+Basically, we can partition data from the global memory into tiles so each tile fits into the shared memory!
+
+This invovles the following steps...
+1. Load subset from global memory to shared memory using multiple threads to exploit memory-level parallelism
+2. Perform computation on shared memory
+3. Copy results from shared memory to global memory
