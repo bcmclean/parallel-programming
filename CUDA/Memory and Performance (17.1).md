@@ -98,3 +98,40 @@ This invovles the following steps...
 1. Load subset from global memory to shared memory using multiple threads to exploit memory-level parallelism
 2. Perform computation on shared memory
 3. Copy results from shared memory to global memory
+
+### Why do we have to use shared memory? Why not registers? 
+Okay, let's look back at the different types of memory that we have.
+
+#### Registers
+- There are a limited number of registers per SM. So.. they are divided amongst threads in a block, remember? This means the more threads we have, the less registers per thread. If we have a lot of threads, it's going to be difficult for some of them to share one register. There simply aren't enough registers to solve this problem!
+- For this particular problem, we also have to remember that elements are being accessed multiple times. The fact that the memory is going to be private to each thread is not great! 
+
+### Looking back at the steps again...
+
+1. The block loads data from global memory to shared memory
+2. Synchronize threads
+3. Threads work on data from shared memory in parallel
+4. Block writes data back from shared to global memory-
+
+---
+
+1. Define shared memory matrices (that have the same dimension as the tile width!)
+````
+__shared__ float Ns[TILE_WIDTH][TILE_WIDTH]
+__shared__ float Ms[TILE_WIDTH][TILE_WIDTH]
+````
+2. Before you do any computation, you want to read the global memory into the shared memory
+````
+Ms[ty][tx] = M[y * Width + tx];
+Ns[ty][tx] = N[ty * Width + x];
+````
+3. Since step 2 needs to be finished before we move onto the computation, we need to synchronize the threads!
+
+`__syncthreads();`
+
+Note this only works on threads within the same block..
+
+4. Do computation in shared memory
+````
+value += Ms[ty][k] * Ns[k][tx]
+````
