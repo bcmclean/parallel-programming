@@ -35,3 +35,9 @@ If you use synchthreads twice in your kernel they will be treated as two differe
 For the image above, do we have to break the statement into two?
 
 The answer is no. Why is that? It's because we are only reading other elements and copying them into our own. Other elements are not affected by our reading and writing. But if we were writing to an element other than our own, that's when we would need to synchronize them.
+
+<img src="https://github.com/bcmclean/parallel-programming/blob/main/CUDA/thread-synch-question-2.png" width="650" height="250">
+
+For the above image, do these two programs perform the same?
+
+No! The location of syncthreads() matters. If it's outside of the if statement, all threads will run through it. But if it's inside the if statement, since only odd elements will reach it, we will be faced with a deadlock because not all threads will be able to read it and synchronize.
