@@ -41,3 +41,18 @@ The answer is no. Why is that? It's because we are only reading other elements a
 For the above image, do these two programs perform the same?
 
 No! The location of syncthreads() matters. If it's outside of the if statement, all threads will run through it. But if it's inside the if statement, since only odd elements will reach it, we will be faced with a deadlock because not all threads will be able to read it and synchronize.
+
+### Atomic Sections
+
+#### Why do we want to avoid critical sections?
+It will serialize your threads and lead to low performance!
+
+- Serializes thread accesses to shared data
+- Read-modify-write atomic operation on one word in global or shared memory
+- Arithmetic: atomicAdd(), atomicSub(), ....
+- Bitwise: atomicAnd(), atomicOr(), atomicXor()
+
+Other limitations...
+- There's no specific order
+- Only certain operations are supported
+- Only int is supported for most operations
