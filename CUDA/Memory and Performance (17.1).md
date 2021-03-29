@@ -135,3 +135,13 @@ Note this only works on threads within the same block..
 ````
 value += Ms[ty][k] * Ns[k][tx]
 ````
+
+#### What if WIDTH > TILE_WIDTH?
+- Break up inner product loop of each thread into phases
+- At the beginning of each phase, load M and N elements that everyone needs during a phase P into shared memory
+- Everyone access the M and N elements from the shared memory during the phase
+
+
+### L1 and L2
+- When reading from global memory L1 and L2 are used
+- When writing to global memory only L2 is used
