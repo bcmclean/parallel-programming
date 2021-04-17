@@ -72,3 +72,28 @@ Pre-Emptive
 2. Hold while waiting (A process can hold a resource while its waiting for other resources)
 3. No pre-emption (OS doesnt force process to let go, must let go by itself)
 4. Circular wait (P1 waiting for resource held by P2, P2 waiting for waiting for resource  held by 1)
+
+### How to prevent a deadlock
+1. Prevention
+  - Prevent deadlock by preventing one of the four conditions from occurring
+2. Detection
+  - Algorithm that scans and looks for deadlock, will force a process to restart and the process will let go of the resource
+3. Ignoring the deadlock
+  - Rarely happens, data loss incurred is tolerable
+
+### Data Race
+* Date race just means you could get different results each time it is run
+- Occurs when all three conditions are satisfied...
+  - 2 or more concurrent threads access the same shared memory
+  - At least 1 thread is writing to the shared location
+  - There's no synchronization that enforces a particular order 
+
+- Program may give different results each time it is run
+- Discovery of data races can be automated
+
+### Race Condition
+- Program or output state depends on ordering of events
+- Many race conditions can be caused by data races but it's not necessary
+- Most race conditions are data races (but you can have a race condition without a data race)
+
+
