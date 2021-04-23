@@ -35,6 +35,7 @@ and return global_result
 
 2. With reduction
     - Global result is private to each thread, on exit they are all added together
+    - reduction (<op> : <variable list>).. can use max, min, sum
     
 3. Manually divide the threads
     - Iterations must be divisible by number of threads
@@ -142,9 +143,25 @@ Explicitely define the scope:
 
 - Default forces the programmer to specify the scope of each variable in a block
 
+### Atomic
+- Load-modify-store (updating single memory location) -> has restrictions
+
 ### Barriers
+- Used for threads synchronization
+- All threads must reach the barrier before any of them can proceed
+
+Two types of barriers:
+  - Implicit: automatically added
+  - Explicit: programmers add them
+
+`#pragma omp barrier`
 
 ### Nowait 
+- If nowait is used, after 'single' for example, there is no synchronization
+- Using barriers is expensive because many threads will be idle, so you can reduce synchronization by using 'nowait'
+- Used to cancel implicit barriers at the end of pragma construct
+- `#pragma omp single nowait`
+- Of course, we only use this if there is no data dependency
 
 ### Sections
 
