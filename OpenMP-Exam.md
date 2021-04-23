@@ -34,6 +34,7 @@ The main themes are:
 and return global_result
 
 2. With reduction
+    - Global result is private to each thread, on exit they are all added together
     
 3. Manually divide the threads
     - Iterations must be divisible by number of threads
@@ -134,4 +135,11 @@ Explicitely define the scope:
 3. firstprivate(z)
   - same as private, but each copy of z is initialized with the value that the original z has when the construct is encountered
  
- 
+ Variables that can't be changed...
+ - Variables declared inside the parallel region are private
+ - A loop variable in a parallel loop is private
+ - Const variables are shared
+
+`pragma omp parallel num_threads(thread_count) default(none) private(x) shared(y)`
+
+- Default forces the programmer to specify the scope of each variable in a block
