@@ -100,8 +100,6 @@ double Trap(double a, double b, int n, int thread_count)
   
 ````
 
-### Matrix Multiplication
-
 ### Loop Carried Dependencies
 -> Loop carried dependency is what happens when calculations in one iteration depend on the data written by other iteractions...
 
@@ -143,3 +141,35 @@ Explicitely define the scope:
 `pragma omp parallel num_threads(thread_count) default(none) private(x) shared(y)`
 
 - Default forces the programmer to specify the scope of each variable in a block
+
+### Barriers
+
+### Nowait 
+
+### Sections
+
+### Schedule
+
+### Pragma Omp Parallel For
+For.. has an implied barrier on exit (unless nowait is used!). No implied barrier on entry.
+  - They use existing threads (don't create new ones)
+
+`#pragma omp for` -> Does not create new threads. It MUST be placed WITHIN a parallel region
+`#pragma omp parallel for` -> Creates new threads. Parallel block that ONLY includes a for loop...
+
+````
+#pragma omp for
+for (... i.... ) // parallelized
+  for (...j....) // not parallel, each thread will execute all iterations
+  // j is not private.. unless its declared right after outer for loop or is explicitely defined as private
+  
+````
+!!!!! go back to slide 20
+
+#### Static scheduling
+- Number of iterations is divided equally amongst threads
+- Extra iterations would be assigned to first few threads
+
+
+### Matrix Multiplication
+
