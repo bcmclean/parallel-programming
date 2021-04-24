@@ -165,8 +165,6 @@ Two types of barriers:
 
 ### Sections
 
-### Schedule
-
 ### Pragma Omp Parallel For
 For.. has an implied barrier on exit (unless nowait is used!). No implied barrier on entry.
   - They use existing threads (don't create new ones)
@@ -183,10 +181,25 @@ for (... i.... ) // parallelized
 ````
 !!!!! go back to slide 20
 
-#### Static scheduling
-- Number of iterations is divided equally amongst threads
-- Extra iterations would be assigned to first few threads
+### Schedule
 
+#### Static scheduling
+- Number of iterations is divided equally amongst threads, in roubd-robin function
+- Extra iterations would be assigned to first few threads
+- Default chunk ~= num_iterations / num_threads
+
+#### Dynamic
+- Iterations broken up into chunks of chunk size
+- Each thread executes a chunk. Then, it requests another
+- Keeps going until all iterations are completed
+- Default chunk size = 1
+- `schedule(dynamic, 2)`
+- If the chunks are too large it could be unbalanced
+
+#### Guided
+- Similar to dynamic but it starts sith large chunks then adjusts to smaller chunk sizes if the workload is imbalanced
+- If chunk size is unspecified, chunk size decreases down to 1
+- If chunk size is specified, it decreases down to chunk size
 
 ### Matrix Multiplication
 
