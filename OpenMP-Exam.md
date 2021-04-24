@@ -187,6 +187,7 @@ for (... i.... ) // parallelized
 - Number of iterations is divided equally amongst threads, in roubd-robin function
 - Extra iterations would be assigned to first few threads
 - Default chunk ~= num_iterations / num_threads
+- Use: iterations require the same amount of time, little overhead
 
 #### Dynamic
 - Iterations broken up into chunks of chunk size
@@ -195,11 +196,14 @@ for (... i.... ) // parallelized
 - Default chunk size = 1
 - `schedule(dynamic, 2)`
 - If the chunks are too large it could be unbalanced
+- Use: iterations require different amounts of times, allows processors to go after other chunks to balance the workload and keep processors busy. More overhead
+
 
 #### Guided
 - Similar to dynamic but it starts sith large chunks then adjusts to smaller chunk sizes if the workload is imbalanced
 - If chunk size is unspecified, chunk size decreases down to 1
 - If chunk size is specified, it decreases down to chunk size
+- Use: when workload increases as we go to higher iterations (initial chunks require less time), more overhead
 
 ### Matrix Multiplication
 
